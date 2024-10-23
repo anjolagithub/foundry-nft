@@ -3,10 +3,11 @@
 pragma solidity ^0.8.24;
 
 
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
-contract BasicNft {
-    constructor() {
+contract BasicNft is ERC721 {
+    uint 23
+    constructor() ERC721("Bougie", "BNFT") {
         
     }
 }
