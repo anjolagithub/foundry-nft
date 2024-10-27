@@ -2,19 +2,21 @@
 pragma solidity ^0.8.24;
 
 import {Script} from "forge-std/Script.sol";
+import {DevOpsTools} from "../lib/foundry-devops/src/DevOpsTools.sol";
 import {BasicNft} from "../src/BasicNft.sol";
 
 contract MintBasicNft is Script {
-    address public basicNftAddress;
-
-    function run() external returns (BasicNft) {
-       vm.startBroadcast();
-       BasicNft basicNft = new BasicNft();
-         vm.stopBroadcast();
-         return basicNft;
+    string public PUG = "ipfs://bafybeig37ioir76s7mg5oobetncojcm3c3hxasyd4rvid4jqhy4gkaheg4/?filename=0-PUG.json";
+    function run() external {
+        address mostRecentlyDeployed = DevOpsTools.get_most_recent_deployment("BasicNft",
+        block.chainid);
+        mintNftOnContract(mostRecentlyDeployed);
     }
 
-    constructor() {
-        basicNftAddress = address(new BasicNft());
+    function mintNftOnContract(address _contractAddress) public{
+        vm.startBroadcast();
+        BasicNft basicNft = BasicNft(_contractAddress);
+        basicNft.mintNFT("PUG");
+        vm.stopBroadcast();
     }
 }

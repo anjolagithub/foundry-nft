@@ -8,8 +8,9 @@ import {DeployBasicNft} from "../script/DeployBasicNft.s.sol";
 contract BasicNftTest is Test{
     DeployBasicNft public deployer;
     BasicNft public basicNft;
-    address public USER = makeAddr("user")
-    string constant public constant PUG = 'ipfs://bafybeig37ioir76s7mg5oobetncojcm3c3hxasyd4rvid4jqhy4gkaheg4/?filename=0-PUG.json'
+    address public USER = makeAddr("user");
+    string public PUG = "ipfs://bafybeig37ioir76s7mg5oobetncojcm3c3hxasyd4rvid4jqhy4gkaheg4/?filename=0-PUG.json";
+    
     
     function setUp() public {
         deployer = new DeployBasicNft(); 
@@ -17,18 +18,17 @@ contract BasicNftTest is Test{
 
     }
 
-    function testNameIsCorrect() public view{
-        string memory expectedName = "Bougie";
-        string memory name = basicNft.name();
+    function testNameIsCorrect() public view {
+    string memory expectedName = "Bougie";
+    string memory name = basicNft.name();
 
-        assertEq(keccak256(abi.encodePacked(expectedName)) ==
-        keccak256(abi.encodePacked(name)));
-    }
+    // Directly compare the keccak256 hashes of the two strings using assertEq for bytes32
+    assertEq(keccak256(abi.encodePacked(expectedName)), keccak256(abi.encodePacked(name)));
+}
 
     function testCanMintAndHaveABalance
     () public {
         vm.prank(USER);
-        string memory uri = "ipfs://bafybeig37ioir76s7mg5oobetncojcm3c3hxasyd4rvid4jqhy4gkaheg4/?filename=0-PUG.json";
         basicNft.mintNFT(PUG);
 
 
