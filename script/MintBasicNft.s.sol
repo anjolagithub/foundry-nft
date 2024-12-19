@@ -8,7 +8,7 @@ import {BasicNft} from "../src/BasicNft.sol";
 contract MintBasicNft is Script {
     // IPFS URI for the NFT metadata
     string public PUG = "ipfs://bafybeig37ioir76s7mg5oobetncojcm3c3hxasyd4rvid4jqhy4gkaheg4/?filename=0-PUG.json";
-    
+
     function run() external {
         // Get the most recently deployed BasicNft contract address
         address mostRecentlyDeployed = DevOpsTools.get_most_recent_deployment("BasicNft", block.chainid);
